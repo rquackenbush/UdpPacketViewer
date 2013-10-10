@@ -1,0 +1,16 @@
+<Application x:Class="UdpPacketViewer.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             Startup="App_OnStartup" StartupUri="/View/AppView.xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             DispatcherUnhandledException="App_OnDispatcherUnhandledException"
+             xmlns:udpPacketViewer="clr-namespace:UdpPacketViewer" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+          
+        </ResourceDictionary>
+      </ResourceDictionary.MergedDictionaries>
+      <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:UdpPacketViewer.ViewModel" />
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>
