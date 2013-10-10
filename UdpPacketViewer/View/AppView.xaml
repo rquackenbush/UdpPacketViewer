@@ -14,12 +14,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <Menu>
-            <MenuItem Header="_File">
-                <MenuItem Header="Exit"></MenuItem>
-            </MenuItem>
-        </Menu>
-        
+       
         <ToolBar Grid.Row="1">
             <ToolBarTray>
                 <ToolBar>
@@ -34,7 +29,7 @@
                     <xctk:IntegerUpDown Value="{Binding Path=UdpListenPort}" Maximum="65535" Minimum="0" ToolTip="The port to listen with" Width="80" IsEnabled="{Binding Path=CanPlay}" />
                     <Separator></Separator>
                     <Grid>
-                        <CheckBox Margin="5" VerticalAlignment="Center" IsChecked="{Binding Path=LogToFile}">Log to file?</CheckBox>
+                        <CheckBox Margin="5" VerticalAlignment="Center" IsChecked="{Binding Path=LogToFile}" IsEnabled="{Binding Path=CanPlay}">Log to file?</CheckBox>
                     </Grid>
                 </ToolBar>
             </ToolBarTray>

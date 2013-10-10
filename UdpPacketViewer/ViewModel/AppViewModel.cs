@@ -97,6 +97,8 @@ namespace UdpPacketViewer.ViewModel
                     }
                     catch (System.Net.Sockets.SocketException ex)
                     {
+                        //This is how we kill the task... The cancelllation token doesn't work well because another packet 
+                        // has to come in for the task to die.
                         Console.WriteLine("Swallowed SocketException");
                     }
 
@@ -169,7 +171,6 @@ namespace UdpPacketViewer.ViewModel
         }
 
         private bool _logToFile;
-
         public bool LogToFile
         {
             get { return _logToFile; }
