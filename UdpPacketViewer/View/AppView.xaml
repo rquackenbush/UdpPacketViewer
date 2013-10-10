@@ -5,7 +5,7 @@
         xmlns:view="clr-namespace:UdpPacketViewer.View"
         DataContext="{Binding Source={StaticResource Locator}, Path=App}"
         Background="LightBlue"
-        Title="{Binding Path=Title, Mode=OneWay}" Height="500" Width="800">
+        Title="{Binding Path=Title, Mode=OneWay}" Height="500" Width="800" Icon="/Images\Network_ConnectTo.png" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -16,13 +16,16 @@
         
        
         <ToolBar Grid.Row="1">
-            <ToolBarTray>
-                <ToolBar>
+            
+                
                     <Button Command="{Binding Path=StartCommand}" ToolTip="Start Listening">
                         <view:AutoGreyableImage Source="/images/PlayHS.png" Width="16" />
                     </Button>
                     <Button Command="{Binding Path=StopCommand}" ToolTip="Stop Listening">
                         <view:AutoGreyableImage Source="/images/StopHS.png" Width="16" />
+                    </Button>
+                    <Button Command="{Binding Path=ClearCommand}" ToolTip="Clear the packets in this view (does not affect the log file)">
+                        <view:AutoGreyableImage Source="/images/Erase.png" Width="16" />
                     </Button>
                     <Separator></Separator>
                     <Label>Port:</Label>
@@ -31,8 +34,8 @@
                     <Grid>
                         <CheckBox Margin="5" VerticalAlignment="Center" IsChecked="{Binding Path=LogToFile}" IsEnabled="{Binding Path=CanPlay}">Log to file?</CheckBox>
                     </Grid>
-                </ToolBar>
-            </ToolBarTray>
+                
+            
         </ToolBar>
         
         <Grid Grid.Row="2">
@@ -41,12 +44,12 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <DataGrid  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13">
+            <DataGrid  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Time" Width="200" Binding="{Binding Path=Timestamp}" />
-                    <DataGridTextColumn Header="Source" Width="200" Binding="{Binding Path=Source}" />
-                    <DataGridTextColumn Header="Length" Width="100" Binding="{Binding Path=Length}"/>
-                    <DataGridTextColumn Header="Content" Width="600" Binding="{Binding Path=Content}"/>
+                    <DataGridTextColumn Header="Time" Width="200" Binding="{Binding Path=Timestamp}"  IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Source" Width="200" Binding="{Binding Path=Source}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Length" Width="100" Binding="{Binding Path=Length}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Content" Width="600" Binding="{Binding Path=Content}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 

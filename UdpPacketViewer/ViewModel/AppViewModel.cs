@@ -19,7 +19,6 @@ namespace UdpPacketViewer.ViewModel
         private Task _listenerTask;
         private readonly ObservableCollection<PacketViewModel> _packets = new ObservableCollection<PacketViewModel>();
         private StreamWriter _logWriter;
-
         private UdpListener _listener;
 
         /// <summary>
@@ -29,6 +28,7 @@ namespace UdpPacketViewer.ViewModel
         {
             this.StartCommand = new RelayCommand(Start, CanStart);
             this.StopCommand = new RelayCommand(Stop, CanStop);
+            this.ClearCommand = new RelayCommand(Clear, CanClear);
 
             if (this.IsInDesignMode)
             {
@@ -42,6 +42,7 @@ namespace UdpPacketViewer.ViewModel
 
         public ICommand StartCommand { get; private set; }
         public ICommand StopCommand { get; private set; }
+        public ICommand ClearCommand { get; private set; }
 
         void PacketReceived(object sender, PacketReceivedEventArgs e)
         {
@@ -55,6 +56,16 @@ namespace UdpPacketViewer.ViewModel
             {
                 _logWriter.WriteLine("{0},\"{1}\",{2},\"{3}\"", packetViewModel.Timestamp, packetViewModel.Source, packetViewModel.Content.Length, packetViewModel.Content.Replace("\"", "\"\""));
             }
+        }
+
+        private void Clear()
+        {
+            this.Packets.Clear();
+        }
+
+        private bool CanClear()
+        {
+            return true;
         }
 
         private void Start()
@@ -79,8 +90,6 @@ namespace UdpPacketViewer.ViewModel
                 //Create the log writer
                 _logWriter = new StreamWriter(File.Open(dialog.FileName, FileMode.Append));
             }
-
-            
 
             _listenerTask = new Task(() =>
             {
