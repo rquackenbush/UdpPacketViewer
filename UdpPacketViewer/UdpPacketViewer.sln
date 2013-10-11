@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpPacketViewer", "UdpPacketViewer.csproj", "{A1BA033C-43B7-47A2-8510-085707BA3FDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpPacketViewer.Plugin.Interfaces", "..\UdpPacketViewer.Plugin.Interfaces\UdpPacketViewer.Plugin.Interfaces.csproj", "{3B374406-4F6C-4A93-B446-F129CE1FB88F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdPacketViewer.Plugin.AsciiViewer", "UpdPacketViewer.Plugin.AsciiViewer\UpdPacketViewer.Plugin.AsciiViewer.csproj", "{B0EC5C6E-5E56-4F2E-BEED-C2609AC7A745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpPacketViewer.Plugin.BinaryViewer", "UdpPacketViewer.Plugin.BinaryViewer\UdpPacketViewer.Plugin.BinaryViewer.csproj", "{CFA677FC-6C67-46D7-AC4A-773BDE751EF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{A1BA033C-43B7-47A2-8510-085707BA3FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1BA033C-43B7-47A2-8510-085707BA3FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1BA033C-43B7-47A2-8510-085707BA3FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B374406-4F6C-4A93-B446-F129CE1FB88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B374406-4F6C-4A93-B446-F129CE1FB88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B374406-4F6C-4A93-B446-F129CE1FB88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B374406-4F6C-4A93-B446-F129CE1FB88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0EC5C6E-5E56-4F2E-BEED-C2609AC7A745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0EC5C6E-5E56-4F2E-BEED-C2609AC7A745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0EC5C6E-5E56-4F2E-BEED-C2609AC7A745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0EC5C6E-5E56-4F2E-BEED-C2609AC7A745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA677FC-6C67-46D7-AC4A-773BDE751EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA677FC-6C67-46D7-AC4A-773BDE751EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA677FC-6C67-46D7-AC4A-773BDE751EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA677FC-6C67-46D7-AC4A-773BDE751EF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

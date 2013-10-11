@@ -1,0 +1,7 @@
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\bin\Debug\UdpPacketViewer.Plugin.Interfaces.dll
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\bin\Debug\UdpPacketViewer.Plugin.Interfaces.pdb
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.csprojResolveAssemblyReference.cache
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.Properties.Resources.resources
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.csproj.GenerateResource.Cache
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.dll
+C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.pdb

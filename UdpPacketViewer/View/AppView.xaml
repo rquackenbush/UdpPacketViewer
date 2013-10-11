@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:view="clr-namespace:UdpPacketViewer.View"
+        xmlns:view="clr-namespace:UdpPacketViewer.View" Loaded="AppView_OnLoaded"
         DataContext="{Binding Source={StaticResource Locator}, Path=App}"
         Background="LightBlue"
         Title="{Binding Path=Title, Mode=OneWay}" Height="500" Width="800" Icon="/Images\Network_ConnectTo.png" >
@@ -16,26 +16,24 @@
         
        
         <ToolBar Grid.Row="1">
-            
-                
-                    <Button Command="{Binding Path=StartCommand}" ToolTip="Start Listening">
-                        <view:AutoGreyableImage Source="/images/PlayHS.png" Width="16" />
-                    </Button>
-                    <Button Command="{Binding Path=StopCommand}" ToolTip="Stop Listening">
-                        <view:AutoGreyableImage Source="/images/StopHS.png" Width="16" />
-                    </Button>
-                    <Button Command="{Binding Path=ClearCommand}" ToolTip="Clear the packets in this view (does not affect the log file)">
-                        <view:AutoGreyableImage Source="/images/Erase.png" Width="16" />
-                    </Button>
-                    <Separator></Separator>
-                    <Label>Port:</Label>
-                    <xctk:IntegerUpDown Value="{Binding Path=UdpListenPort}" Maximum="65535" Minimum="0" ToolTip="The port to listen with" Width="80" IsEnabled="{Binding Path=CanPlay}" />
-                    <Separator></Separator>
-                    <Grid>
-                        <CheckBox Margin="5" VerticalAlignment="Center" IsChecked="{Binding Path=LogToFile}" IsEnabled="{Binding Path=CanPlay}">Log to file?</CheckBox>
-                    </Grid>
-                
-            
+                <Button Command="{Binding Path=StartCommand}" ToolTip="Start Listening">
+                    <view:AutoGreyableImage Source="/images/PlayHS.png" Width="16" />
+                </Button>
+                <Button Command="{Binding Path=StopCommand}" ToolTip="Stop Listening">
+                    <view:AutoGreyableImage Source="/images/StopHS.png" Width="16" />
+                </Button>
+                <Button Command="{Binding Path=ClearCommand}" ToolTip="Clear the packets in this view (does not affect the log file)">
+                    <view:AutoGreyableImage Source="/images/Erase.png" Width="16" />
+                </Button>
+                <Separator></Separator>
+                <Label>Port:</Label>
+                <xctk:IntegerUpDown Value="{Binding Path=UdpListenPort}" Maximum="65535" Minimum="0" ToolTip="The port to listen with" Width="80" IsEnabled="{Binding Path=CanPlay}" />
+                <Separator></Separator>
+            <Grid>
+                <CheckBox Margin="5" VerticalAlignment="Center" IsChecked="{Binding Path=LogToFile}" IsEnabled="{Binding Path=CanPlay}">Log to file?</CheckBox>
+            </Grid>
+
+
         </ToolBar>
         
         <Grid Grid.Row="2">
@@ -44,7 +42,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <DataGrid  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13" IsReadOnly="True">
+            <DataGrid  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13" IsReadOnly="True" SelectedItem="{Binding Path=SelectedPacket}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Time" Width="200" Binding="{Binding Path=Timestamp}"  IsReadOnly="True"/>
                     <DataGridTextColumn Header="Source" Width="200" Binding="{Binding Path=Source}" IsReadOnly="True"/>
@@ -55,7 +53,35 @@
 
             <GridSplitter Grid.Row="0" ResizeDirection="Rows" Background="Silver" Height="4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"></GridSplitter>
 
-            <TextBox Grid.Row="1" IsReadOnly="True" Margin="5,3,5,5" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Text="{Binding ElementName=PacketsGrid, Path=SelectedItem.Content, Mode=OneWay}" FontFamily="Consolas" FontSize="13" />
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock VerticalAlignment="Center" Margin="5">Packet Viewer:</TextBlock>
+                    <ComboBox Grid.Column="1" MinWidth="250" 
+                              ItemsSource="{Binding Path=PacketViewers}" 
+                              SelectedItem="{Binding Path=SelectedPacketViewer}"
+                              x:Name="PacketViewerComboBox"
+                              SelectionChanged="PacketViewerComboBox_OnSelectionChanged"
+                              ToolTip="{Binding ElementName=PacketViewerComboBox, Path=SelectedItem.Description}"
+                              DisplayMemberPath="Name"></ComboBox>
+                    
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="5,3,5,5" x:Name="PacketViewerContainer"  >
+                    
+                </Grid>
+            </Grid>
+            
+            
         </Grid>
        
         

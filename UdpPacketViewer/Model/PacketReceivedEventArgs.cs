@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Net;
 
 namespace UdpPacketViewer.Model
 {
-    public class PacketReceivedEventArgs : EventArgs
+    internal class PacketReceivedEventArgs : EventArgs
     {
-        public PacketReceivedEventArgs(string address, byte[] contents)
+        public PacketReceivedEventArgs(IPAddress address, int sourcePort, byte[] contents)
         {
             this.Address = address;
             this.Contents = contents;
+            this.Port = sourcePort;
         }
 
-        public string Address { get; private set; }
+        public IPAddress Address { get; private set; }
+
+        public int Port { get; private set; }
 
         public byte[] Contents { get; private set; }
     }

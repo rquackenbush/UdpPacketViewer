@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,9 +18,10 @@ namespace UdpPacketViewer.ViewModel
     public class AppViewModel : ViewModelBase
     {
         private Task _listenerTask;
-        private readonly ObservableCollection<PacketViewModel> _packets = new ObservableCollection<PacketViewModel>();
+        private readonly ObservableCollection<PacketRowViewModel> _packets = new ObservableCollection<PacketRowViewModel>();
         private StreamWriter _logWriter;
         private UdpListener _listener;
+        private PacketViewerPluginManager _pluginManager = new PacketViewerPluginManager();
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -32,12 +34,14 @@ namespace UdpPacketViewer.ViewModel
 
             if (this.IsInDesignMode)
             {
-                this.Packets.Add(new PacketViewModel(DateTime.Now.Subtract(TimeSpan.FromMinutes(5)), "192.168.1.1:800", 6, "Hello!"));
+                
             }
 
             this.UdpListenPort = Properties.Settings.Default.UdpListenPort;
 
             this.Title = "UDP Packet Viewer";
+
+            this.SelectedPacketViewer = this.PacketViewers.FirstOrDefault();
         }
 
         public ICommand StartCommand { get; private set; }
@@ -46,15 +50,58 @@ namespace UdpPacketViewer.ViewModel
 
         void PacketReceived(object sender, PacketReceivedEventArgs e)
         {
-            var contents =  Encoding.ASCII.GetString(e.Contents);
+            var packet = new Packet(DateTime.Now, e.Address, e.Port, e.Contents);
 
-            var packetViewModel = new PacketViewModel(DateTime.Now, e.Address, e.Contents.Length, contents);
+            var packetViewModel = new PacketRowViewModel(packet);
 
             DispatcherHelper.CheckBeginInvokeOnUI(() => this.Packets.Add(packetViewModel));
 
             if (_logWriter != null)
             {
                 _logWriter.WriteLine("{0},\"{1}\",{2},\"{3}\"", packetViewModel.Timestamp, packetViewModel.Source, packetViewModel.Content.Length, packetViewModel.Content.Replace("\"", "\"\""));
+            }
+        }
+
+        private PacketRowViewModel _selectedPacket;
+        public PacketRowViewModel SelectedPacket
+        {
+            get { return _selectedPacket; }
+            set
+            {
+                _selectedPacket = value;
+                RaisePropertyChanged(() => SelectedPacket);
+                UpdatePacketViewer();
+            }
+        }
+
+        private void UpdatePacketViewer()
+        {
+            if (this.SelectedPacketViewer == null)
+                return;
+
+            this.SelectedPacketViewer.Viewer.SetPacket(this.SelectedPacket == null 
+                ? null 
+                : this.SelectedPacket.Packet);
+        }
+
+        private PacketViewer _selectedPacketViewer;
+        public PacketViewer SelectedPacketViewer 
+        {
+            get { return _selectedPacketViewer; }
+            set
+            {
+                _selectedPacketViewer = value;
+                RaisePropertyChanged(() => SelectedPacketViewer);
+
+                UpdatePacketViewer();
+            }
+        }
+
+        public PacketViewer[] PacketViewers
+        {
+            get
+            {
+                return _pluginManager.PacketViewers;
             }
         }
 
@@ -190,7 +237,7 @@ namespace UdpPacketViewer.ViewModel
             }
         }
 
-        public ObservableCollection<PacketViewModel> Packets
+        public ObservableCollection<PacketRowViewModel> Packets
         {
             get { return _packets; }
         }

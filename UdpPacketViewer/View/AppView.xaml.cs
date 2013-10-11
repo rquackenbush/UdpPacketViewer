@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UdpPacketViewer.Model;
+using UdpPacketViewer.ViewModel;
 
 namespace UdpPacketViewer.View
 {
@@ -22,6 +24,31 @@ namespace UdpPacketViewer.View
         public AppView()
         {
             InitializeComponent();
+        }
+        
+        private void SetPacketViewer()
+        {
+            if (PacketViewerContainer == null)
+                return;
+
+            var packetViewer = PacketViewerComboBox.SelectedItem as PacketViewer;
+
+            PacketViewerContainer.Children.Clear();
+
+            if (packetViewer != null)
+            {
+                PacketViewerContainer.Children.Add(packetViewer.Viewer.Control);
+            }
+        }
+
+        private void PacketViewerComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetPacketViewer();
+        }
+
+        private void AppView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            SetPacketViewer();
         }
     }
 }

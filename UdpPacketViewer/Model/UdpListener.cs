@@ -6,45 +6,41 @@ using System.Threading;
 
 namespace UdpPacketViewer.Model
 {
-    public class UdpListener : IDisposable
+    internal class UdpListener : IDisposable
     {
         public event EventHandler<PacketReceivedEventArgs> PacketReceived;
-        private readonly UdpClient _listener;
-        private IPEndPoint _groupEndPoint;
+        private readonly UdpClient _client;
 
         public UdpListener(int port)
         {
-            _listener = new UdpClient(port);
-
-            _groupEndPoint = new IPEndPoint(IPAddress.Any, port);
+            _client = new UdpClient(port);
         }
 
-        private void RaisePacketReceived(string address, byte[] contents)
+        private void RaisePacketReceived(IPAddress address, int port, byte[] contents)
         {
             var handler = PacketReceived;
 
             if (handler == null)
                 return;
 
-            handler(this, new PacketReceivedEventArgs(address, contents));
+            handler(this, new PacketReceivedEventArgs(address, port, contents));
         }
 
         public void Listen()
         {
             while (true)
             {
-                var buffer = _listener.Receive(ref _groupEndPoint);
+                IPEndPoint groupEndPoint = null;
 
-                RaisePacketReceived(_groupEndPoint.ToString(), buffer);                
+                var buffer = _client.Receive(ref groupEndPoint);
+
+                RaisePacketReceived(groupEndPoint.Address, groupEndPoint.Port, buffer);               
             }
         }
 
         public void Dispose()
         {
-            if (_listener != null)
-            {
-                ((IDisposable)_listener).Dispose();
-            }
+            ((IDisposable)_client).Dispose();
         }
     }
 }
