@@ -43,6 +43,15 @@
             </Grid.RowDefinitions>
 
             <DataGrid  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13" IsReadOnly="True" SelectedItem="{Binding Path=SelectedPacket}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Clear" Command="{Binding Path=ClearCommand}" >
+                            <MenuItem.Icon>
+                                <Image Source="/Images\Erase.png" Width="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Time" Width="200" Binding="{Binding Path=Timestamp}"  IsReadOnly="True"/>
                     <DataGridTextColumn Header="Source" Width="200" Binding="{Binding Path=Source}" IsReadOnly="True"/>
