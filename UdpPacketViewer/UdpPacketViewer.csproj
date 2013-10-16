@@ -29,7 +29,7 @@
     <PublisherName>CAS Utilities</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>default.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -201,11 +201,11 @@
       <Project>{3b374406-4f6c-4a93-b446-f129ce1fb88f}</Project>
       <Name>UdpPacketViewer.Plugin.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="UdpPacketViewer.Plugin.BinaryViewer\UdpPacketViewer.Plugin.BinaryViewer.csproj">
+    <ProjectReference Include="..\UdpPacketViewer.Plugin.BinaryViewer\UdpPacketViewer.Plugin.BinaryViewer.csproj">
       <Project>{cfa677fc-6c67-46d7-ac4a-773bde751ef0}</Project>
       <Name>UdpPacketViewer.Plugin.BinaryViewer</Name>
     </ProjectReference>
-    <ProjectReference Include="UpdPacketViewer.Plugin.AsciiViewer\UpdPacketViewer.Plugin.AsciiViewer.csproj">
+    <ProjectReference Include="..\UpdPacketViewer.Plugin.AsciiViewer\UpdPacketViewer.Plugin.AsciiViewer.csproj">
       <Project>{b0ec5c6e-5e56-4f2e-beed-c2609ac7a745}</Project>
       <Name>UpdPacketViewer.Plugin.AsciiViewer</Name>
     </ProjectReference>
