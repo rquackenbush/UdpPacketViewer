@@ -16,6 +16,8 @@ namespace UdpPacketViewer.Plugin.BinaryViewer
 
             int currentIndex = 0;
 
+
+
             while(currentIndex < data.Length)
             {
                 string line = FormatLine(currentIndex, data.Skip(currentIndex).Take(Width).ToArray(), Width);
@@ -31,7 +33,6 @@ namespace UdpPacketViewer.Plugin.BinaryViewer
         private static string FormatLine(int startingIndex, byte[] data, int width)
         {
 
-
             string result = Convert.ToString(startingIndex, 16).PadLeft(HeaderWidth, '0');
 
             result += "  ";
@@ -39,6 +40,9 @@ namespace UdpPacketViewer.Plugin.BinaryViewer
             for (int index = 0; index < data.Length; index++)
             {
                 result += Convert.ToString(data[index], 16).PadLeft(2, '0') + " ";
+
+                if (index == 8)
+                    result += " ";
             }
 
             result += " ";
