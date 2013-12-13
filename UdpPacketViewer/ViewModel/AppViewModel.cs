@@ -1,16 +1,21 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Win32;
 using UdpPacketViewer.Model;
+using Xceed.Wpf.DataGrid.ValidationRules;
 
 namespace UdpPacketViewer.ViewModel
 {
@@ -19,6 +24,7 @@ namespace UdpPacketViewer.ViewModel
     {
         private Task _listenerTask;
         private readonly ObservableCollection<PacketRowViewModel> _packets = new ObservableCollection<PacketRowViewModel>();
+        private readonly ICollectionView _packetsViewSource;
         private StreamWriter _logWriter;
         private UdpListener _listener;
         private PacketViewerPluginManager _pluginManager = new PacketViewerPluginManager();
@@ -32,16 +38,43 @@ namespace UdpPacketViewer.ViewModel
             this.StopCommand = new RelayCommand(Stop, CanStop);
             this.ClearCommand = new RelayCommand(Clear, CanClear);
 
-            if (this.IsInDesignMode)
-            {
+            //if (this.IsInDesignMode)
+            //{
                 
-            }
+            //}
+
+            _packetsViewSource = CollectionViewSource.GetDefaultView(_packets);
+
+            _packetsViewSource.Filter = Filter;
+            
 
             this.UdpListenPort = Properties.Settings.Default.UdpListenPort;
 
             this.Title = "UDP Packet Viewer";
 
             this.SelectedPacketViewer = this.PacketViewers.FirstOrDefault();
+        }
+
+        private bool Filter(object o)
+        {
+            var row = o as PacketRowViewModel;
+
+            if (row == null)
+                return true;
+
+            if (!string.IsNullOrWhiteSpace(this.ContentFilter))
+            {
+                if (CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Content, this.ContentFilter, CompareOptions.IgnoreCase) < 0)
+                    return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.ContentNegativeFilter))
+            {
+                if (CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Content, this.ContentNegativeFilter, CompareOptions.IgnoreCase) >= 0)
+                    return false;
+            }
+
+            return true;
         }
 
         public ICommand StartCommand { get; private set; }
@@ -54,7 +87,7 @@ namespace UdpPacketViewer.ViewModel
 
             var packetViewModel = new PacketRowViewModel(packet);
 
-            DispatcherHelper.CheckBeginInvokeOnUI(() => this.Packets.Add(packetViewModel));
+            DispatcherHelper.CheckBeginInvokeOnUI(() => _packets.Add(packetViewModel));
 
             if (_logWriter != null)
             {
@@ -107,7 +140,7 @@ namespace UdpPacketViewer.ViewModel
 
         private void Clear()
         {
-            this.Packets.Clear();
+            _packets.Clear();
         }
 
         private bool CanClear()
@@ -237,9 +270,49 @@ namespace UdpPacketViewer.ViewModel
             }
         }
 
-        public ObservableCollection<PacketRowViewModel> Packets
+        private bool _isAutoScroll = true;
+        public bool IsAutoScroll
         {
-            get { return _packets; }
+            get { return _isAutoScroll; }
+            set
+            {
+                _isAutoScroll = value;
+                RaisePropertyChanged(() => IsAutoScroll);
+            }
+        }
+
+        public ICollectionView Packets
+        {
+            get { return _packetsViewSource; }
+        }
+
+        private string _contentFilter;
+        public string ContentFilter
+        {
+            get { return _contentFilter; }
+            set
+            {
+                _contentFilter = value;
+                RaisePropertyChanged(() => ContentFilter);
+                UpdateFilter();
+            }
+        }
+
+        private string _contentNegativeFilter;
+        public string ContentNegativeFilter
+        {
+            get { return _contentNegativeFilter; }
+            set
+            {
+                _contentNegativeFilter = value;
+                RaisePropertyChanged(() => ContentNegativeFilter);
+                UpdateFilter();
+            }
+        }
+
+        private void UpdateFilter()
+        {
+            _packetsViewSource.Refresh();
         }
     }
 

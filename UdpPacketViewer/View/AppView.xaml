@@ -5,7 +5,10 @@
         xmlns:view="clr-namespace:UdpPacketViewer.View" Loaded="AppView_OnLoaded"
         DataContext="{Binding Source={StaticResource Locator}, Path=App}"
         Background="LightBlue"
+        
         Title="{Binding Path=Title, Mode=OneWay}" Height="500" Width="800" Icon="/Images\Network_ConnectTo.png" >
+
+    <!--DataContextChanged="AppView_OnDataContextChanged"-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,17 +35,49 @@
             <Grid>
                 <CheckBox Margin="5" VerticalAlignment="Center" IsChecked="{Binding Path=LogToFile}" IsEnabled="{Binding Path=CanPlay}">Log to file?</CheckBox>
             </Grid>
+            
+            <!--<Grid>
+                <CheckBox IsChecked="{Binding Path=IsAutoScroll}" VerticalAlignment="Center" Margin="5">Auto Scroll?</CheckBox>
+            </Grid>-->
 
 
         </ToolBar>
         
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <DataGrid  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13" IsReadOnly="True" SelectedItem="{Binding Path=SelectedPacket}">
+            <!---->
+            <Expander Header="Filter">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" Margin="4" VerticalAlignment="Center">Contains</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold" Margin="4" VerticalAlignment="Center">Does not contain</TextBlock>
+                    
+                    <TextBlock Grid.Row="1" Margin="4" VerticalAlignment="Center">Content</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="4" Text="{Binding Path=ContentFilter, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="2" Margin="4" Text="{Binding Path=ContentNegativeFilter, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                   
+                </Grid>
+                
+                
+                
+            </Expander>
+            
+            
+            <DataGrid Grid.Row="1"  Margin="5, 5, 5,7" AutoGenerateColumns="False" ItemsSource="{Binding Path=Packets}" x:Name="PacketsGrid" FontFamily="Consolas" FontSize="13" IsReadOnly="True" SelectedItem="{Binding Path=SelectedPacket}" >
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Clear" Command="{Binding Path=ClearCommand}" >
@@ -60,9 +95,9 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <GridSplitter Grid.Row="0" ResizeDirection="Rows" Background="Silver" Height="4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"></GridSplitter>
+            <GridSplitter Grid.Row="1" ResizeDirection="Rows" Background="Silver" Height="4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"></GridSplitter>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
