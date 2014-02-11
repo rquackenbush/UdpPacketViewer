@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\ClickOncePub\UdpPacketViewer\</PublishUrl>
+    <PublishUrl>\\tools.captiveaire.com\tools\UDPPacketViewer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,12 +24,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://richq-imac.captiveaire.com/ClickOncePub/UdpPacketViewer/</InstallUrl>
+    <InstallUrl>http://tools.captiveaire.com/UDPPacketViewer/</InstallUrl>
+    <SupportUrl>http://it-support.captiveaire.com/</SupportUrl>
     <ProductName>UDP Packet Viewer</ProductName>
-    <PublisherName>CAS Utilities</PublisherName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <PublisherName>CAS</PublisherName>
+    <SuiteName>CAS Embedded Tools</SuiteName>
     <WebPage>default.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -65,6 +66,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Network.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF45">
@@ -209,6 +213,12 @@
       <Project>{b0ec5c6e-5e56-4f2e-beed-c2609ac7a745}</Project>
       <Name>UpdPacketViewer.Plugin.AsciiViewer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Network.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Network.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

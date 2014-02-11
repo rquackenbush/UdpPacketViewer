@@ -62,17 +62,21 @@ namespace UdpPacketViewer.ViewModel
             if (row == null)
                 return true;
 
-            if (!string.IsNullOrWhiteSpace(this.ContentFilter))
-            {
-                if (CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Content, this.ContentFilter, CompareOptions.IgnoreCase) < 0)
-                    return false;
-            }
+            //Content
+            if (!string.IsNullOrWhiteSpace(this.ContentFilter) && CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Content, this.ContentFilter, CompareOptions.IgnoreCase) < 0 )
+                return false;
 
-            if (!string.IsNullOrWhiteSpace(this.ContentNegativeFilter))
-            {
-                if (CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Content, this.ContentNegativeFilter, CompareOptions.IgnoreCase) >= 0)
-                    return false;
-            }
+            //Source
+            if (!string.IsNullOrWhiteSpace(this.SourceFilter) && CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Source, this.SourceFilter, CompareOptions.IgnoreCase) < 0)
+                return false;
+
+            //Negative Content
+            if (!string.IsNullOrWhiteSpace(this.ContentNegativeFilter) && CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Content, this.ContentNegativeFilter, CompareOptions.IgnoreCase) >= 0)
+                return false;
+
+            //Negative source
+            if (!string.IsNullOrWhiteSpace(this.SourceNegativeFilter) && CultureInfo.CurrentCulture.CompareInfo.IndexOf(row.Source, this.SourceNegativeFilter, CompareOptions.IgnoreCase) >= 0)
+                return false;
 
             return true;
         }
@@ -306,6 +310,30 @@ namespace UdpPacketViewer.ViewModel
             {
                 _contentNegativeFilter = value;
                 RaisePropertyChanged(() => ContentNegativeFilter);
+                UpdateFilter();
+            }
+        }
+
+        private string _sourceFilter;
+        public string SourceFilter
+        {
+            get { return _sourceFilter; }
+            set
+            {
+                _sourceFilter = value;
+                RaisePropertyChanged(() => SourceFilter);
+                UpdateFilter();
+            }
+        }
+
+        private string _sourceNegativeFilter;
+        public string SourceNegativeFilter
+        {
+            get { return _sourceNegativeFilter; }
+            set
+            {
+                _sourceNegativeFilter = value;
+                RaisePropertyChanged(() => SourceNegativeFilter);
                 UpdateFilter();
             }
         }
