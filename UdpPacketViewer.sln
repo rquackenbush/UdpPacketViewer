@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpPacketViewer.Plugin.Interfaces", "UdpPacketViewer.Plugin.Interfaces\UdpPacketViewer.Plugin.Interfaces.csproj", "{3B374406-4F6C-4A93-B446-F129CE1FB88F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdPacketViewer.Plugin.AsciiViewer", "UpdPacketViewer.Plugin.AsciiViewer\UpdPacketViewer.Plugin.AsciiViewer.csproj", "{B0EC5C6E-5E56-4F2E-BEED-C2609AC7A745}"
@@ -10,6 +8,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpPacketViewer.Plugin.BinaryViewer", "UdpPacketViewer.Plugin.BinaryViewer\UdpPacketViewer.Plugin.BinaryViewer.csproj", "{CFA677FC-6C67-46D7-AC4A-773BDE751EF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpPacketViewer", "UdpPacketViewer\UdpPacketViewer.csproj", "{A1BA033C-43B7-47A2-8510-085707BA3FDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{31660661-4C1B-4A61-819B-A07D9FDFE315}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
