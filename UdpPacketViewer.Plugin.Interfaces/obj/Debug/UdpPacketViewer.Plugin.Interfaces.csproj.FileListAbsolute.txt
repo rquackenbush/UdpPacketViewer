@@ -4,4 +4,3 @@ C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugi
 C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.csproj.GenerateResource.Cache
 C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.dll
 C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.pdb
-C:\Users\rich.quackenbush\Documents\GitHub\UdpPacketViewer\UdpPacketViewer.Plugin.Interfaces\obj\Debug\UdpPacketViewer.Plugin.Interfaces.csprojResolveAssemblyReference.cache
